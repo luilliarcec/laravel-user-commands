@@ -4,6 +4,7 @@ namespace Luilliarcec\UserCommands;
 
 use Illuminate\Support\ServiceProvider;
 use Luilliarcec\UserCommands\Commands\CreateNewUserCommand;
+use Luilliarcec\UserCommands\Commands\DeleteUserCommand;
 use Luilliarcec\UserCommands\Commands\ResetUserPasswordCommand;
 
 class UserCommandsServiceProvider extends ServiceProvider
@@ -21,6 +22,7 @@ class UserCommandsServiceProvider extends ServiceProvider
             $this->commands([
                 CreateNewUserCommand::class,
                 ResetUserPasswordCommand::class,
+                DeleteUserCommand::class,
             ]);
         }
     }

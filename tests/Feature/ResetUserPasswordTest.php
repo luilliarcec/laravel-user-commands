@@ -10,7 +10,7 @@ class ResetUserPasswordTest extends TestCase
     /** @test */
     public function check_that_the_password_is_confirmed()
     {
-        $this->artisan('user:reset-password email=luis@email.com')
+        $this->artisan('user:reset-password luis@email.com')
             ->expectsQuestion('password:', '12341234')
             ->expectsQuestion('password confirmation:', 'password')
             ->expectsOutput('The password confirmation does not match.')
@@ -20,7 +20,7 @@ class ResetUserPasswordTest extends TestCase
     /** @test */
     public function check_that_a_error_is_returned_when_the_user_does_not_exist()
     {
-        $this->artisan('user:reset-password email=luis@email.com')
+        $this->artisan('user:reset-password luis@email.com')
             ->expectsQuestion('password:', 'password')
             ->expectsQuestion('password confirmation:', 'password')
             ->expectsOutput('Oops, the user was not found!')

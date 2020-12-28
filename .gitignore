@@ -1,0 +1,15 @@
+build
+composer.lock
+docs
+vendor
+coverage
+.phpunit.result.cache
+.idea/
+*.iws
+out/
+.idea_modules/
+atlassian-ide-plugin.xml
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr

@@ -3,6 +3,7 @@
 namespace Luilliarcec\UserCommands;
 
 use Illuminate\Support\ServiceProvider;
+use Luilliarcec\UserCommands\Commands\CreateNewUserCommand;
 
 class UserCommandsServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,10 @@ class UserCommandsServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../config/config.php' => config_path('user-commands.php'),
             ], 'config');
+
+            $this->commands([
+                CreateNewUserCommand::class,
+            ]);
         }
     }
 

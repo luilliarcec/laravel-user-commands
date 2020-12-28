@@ -88,25 +88,4 @@ class ResetUserPasswordCommand extends UserCommand
             'password' => ['required', 'string', 'confirmed'],
         ];
     }
-
-    /**
-     * Get user model
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
-    protected function getUserModel()
-    {
-        $value = $this->argument('value');
-        $field = $this->argument('field');
-
-        if ($field) {
-            return $this->user::query()
-                ->where($field, $value)
-                ->first();
-        }
-
-        return $this->user::query()
-            ->where('email', $value)
-            ->first() ?: $this->user::query()->find($value);
-    }
 }

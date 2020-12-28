@@ -33,18 +33,54 @@ class UserCommand extends Command
         $this->role = config('user-commands.role.model');
     }
 
+    /**
+     * Create a new user instance
+     *
+     * @return mixed
+     */
     protected function newUserInstance()
     {
         return new $this->user;
     }
 
+    /**
+     * Create a new permission instance
+     *
+     * @return mixed
+     */
     protected function newPermissionInstance()
     {
         return new $this->permission;
     }
 
+    /**
+     * Create a new role instance
+     *
+     * @return mixed
+     */
     protected function newRoleInstance()
     {
         return new $this->role;
+    }
+
+    /**
+     * Get user model
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    protected function getUserModel()
+    {
+        $value = $this->argument('value');
+        $field = $this->argument('field');
+
+        if ($field) {
+            return $this->user::query()
+                ->where($field, $value)
+                ->first();
+        }
+
+        return $this->user::query()
+            ->where('email', $value)
+            ->first() ?: $this->user::query()->find($value);
     }
 }

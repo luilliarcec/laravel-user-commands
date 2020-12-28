@@ -47,10 +47,7 @@ class CreateNewUserCommand extends UserCommand
             'password_confirmation' => $password_confirmation
         ]);
 
-        if (!$passes) {
-            $this->info('Oops, problems arose creating the user!');
-            return 1;
-        }
+        if (!$passes) return 1;
 
         DB::transaction(function () use ($name, $email, $password) {
             $this->save(

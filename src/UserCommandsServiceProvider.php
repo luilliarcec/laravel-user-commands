@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Luilliarcec\UserCommands\Commands\CreateNewUserCommand;
 use Luilliarcec\UserCommands\Commands\DeleteUserCommand;
 use Luilliarcec\UserCommands\Commands\ResetUserPasswordCommand;
+use Luilliarcec\UserCommands\Commands\RestoreUserCommand;
 
 class UserCommandsServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,7 @@ class UserCommandsServiceProvider extends ServiceProvider
                 CreateNewUserCommand::class,
                 ResetUserPasswordCommand::class,
                 DeleteUserCommand::class,
+                RestoreUserCommand::class,
             ]);
         }
     }

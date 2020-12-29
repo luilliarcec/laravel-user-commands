@@ -36,7 +36,7 @@ The package has 4 basic commands
 | user:delete | Delete a user |
 | user:restore | Restore a user |
 
-#### Create Users
+### Create Users
 
 ```bash
 php artisan user:create
@@ -79,7 +79,7 @@ Once the user has been created,
 the `notification` that it has been created will be sent if it implements 
 the `MustVerifyEmail` interface and if the `verification.verify` route name exists
 
-#### Reset Password User
+### Reset Password User
 
 The command to `reset password user` receives the value parameter as required. 
 It will be searched by `email` and if it is not found it will be searched by `id`
@@ -96,7 +96,7 @@ php artisan user:reset-password larcec username
 
 After executing the command it will ask you to enter a new password and confirm it
 
-#### Delete Users
+### Delete Users
 
 In the same way as the command to `reset password user`, 
 the user is searched by email or id or by specifying a specific field.
@@ -119,7 +119,7 @@ however if you want to eliminate completely you can pass the --force argument
 php artisan user:delete larcec username --force
 ```
 
-#### Restore Users
+### Restore Users
 
 In the same way as the command to `reset password user`, 
 the user is searched by email or id or by specifying a specific field.
@@ -136,13 +136,13 @@ php artisan user:restore larcec username
 
 Note that this command will only run if your model uses SoftDelete trait
 
-### Testing
+## Testing
 
 ``` bash
 composer test
 ```
 
-### Changelog
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
@@ -150,7 +150,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-### Security
+## Security
 
 If you discover any security related issues, please email luilliarcec@gmail.com instead of using the issue tracker.
 

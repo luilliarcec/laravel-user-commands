@@ -2,6 +2,7 @@
 
 namespace Luilliarcec\UserCommands\Commands;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -124,7 +125,7 @@ class CreateNewUserCommand extends UserCommand
             return $this->user->markEmailAsVerified();
         }
 
-        if (Route::has('verification.verify')) {
+        if (Route::has('verification.verify') && $this->user instanceof MustVerifyEmail) {
             $this->user->sendEmailVerificationNotification();
         }
 
@@ -136,7 +137,7 @@ class CreateNewUserCommand extends UserCommand
      */
     protected function permissions()
     {
-        if (!$this->permission) return;
+        if (is_null($this->permission)) return;
 
         $relation = config('user-commands.permission.relation');
 
@@ -155,7 +156,7 @@ class CreateNewUserCommand extends UserCommand
      */
     protected function roles()
     {
-        if (!$this->role) return;
+        if (is_null($this->role)) return;
 
         $relation = config('user-commands.role.relation');
 

@@ -11,13 +11,11 @@ class User extends Authenticatable
     use Notifiable, SoftDeletes;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var string[]|bool
      */
-    protected $fillable = [
-        'name', 'username', 'email', 'password',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for arrays.

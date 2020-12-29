@@ -104,7 +104,7 @@ class CreateNewUserTest extends TestCase
     /** @test */
     public function check_that_the_user_is_saved_with_additional_attributes()
     {
-        $this->artisan('user:create --attributes=username:larcec')
+        $this->artisan('user:create --attributes=username:larcec --attributes="address:New York"')
             ->expectsQuestion('name:', 'Luis Arce')
             ->expectsQuestion('email:', 'luis@email.com')
             ->expectsQuestion('password:', 'password')
@@ -115,14 +115,15 @@ class CreateNewUserTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => 'Luis Arce',
             'email' => 'luis@email.com',
-            'username' => 'larcec'
+            'username' => 'larcec',
+            'address' => 'New York'
         ]);
     }
 
     /** @test */
     public function check_that_the_user_is_saved_with_additional_short_attributes()
     {
-        $this->artisan('user:create -a username:larcec')
+        $this->artisan('user:create -a username:larcec -a "address:New York"')
             ->expectsQuestion('name:', 'Luis Arce')
             ->expectsQuestion('email:', 'luis@email.com')
             ->expectsQuestion('password:', 'password')
@@ -133,7 +134,8 @@ class CreateNewUserTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => 'Luis Arce',
             'email' => 'luis@email.com',
-            'username' => 'larcec'
+            'username' => 'larcec',
+            'address' => 'New York'
         ]);
     }
 }

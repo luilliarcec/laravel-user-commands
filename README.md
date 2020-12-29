@@ -29,6 +29,13 @@ That is all. 😀
 
 The package has 4 basic commands
 
+| Commands | Description |
+| -- | -- |
+| user:create | Create a new user in your app |
+| user:reset-password | Restore a user's password |
+| user:delete | Delete a user |
+| user:restore | Restore a user |
+
 #### Create Users
 
 ```bash

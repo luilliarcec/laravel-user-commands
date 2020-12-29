@@ -4,6 +4,7 @@ on: [ push, pull_request ]
 
 jobs:
     tests:
+        runs-on: self-hosted
         strategy:
             matrix:
                 php: [ ^7.4, ^8.0 ]

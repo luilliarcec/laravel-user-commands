@@ -128,3 +128,30 @@ php artisan user:restore larcec username
 ```
 
 Note that this command will only run if your model uses SoftDelete trait
+
+### Testing
+
+``` bash
+composer test
+```
+
+### Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+### Security
+
+If you discover any security related issues, please email luilliarcec@gmail.com instead of using the issue tracker.
+
+## Credits
+
+- [Luis Andrés Arce C.](https://github.com/luilliarcec)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

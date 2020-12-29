@@ -1,6 +1,6 @@
 # Laravel User Commands
 
-![Run Tests](https://github.com/luilliarcec/laravel-user-commands/workflows/Run%20Tests/badge.svg?branch=master)
+![run-tests](https://github.com/luilliarcec/laravel-user-commands/workflows/run-tests/badge.svg)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/luilliarcec/laravel-user-commands.svg)](https://packagist.org/packages/luilliarcec/laravel-user-commands)
 [![Quality Score](https://img.shields.io/scrutinizer/g/luilliarcec/laravel-user-commands)](https://scrutinizer-ci.com/g/luilliarcec/laravel-user-commands)
 [![Total Downloads](https://img.shields.io/packagist/dt/luilliarcec/laravel-user-commands)](https://packagist.org/packages/luilliarcec/laravel-user-commands)

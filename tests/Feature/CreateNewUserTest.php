@@ -4,6 +4,7 @@ namespace Luilliarcec\UserCommands\Tests\Feature;
 
 use Luilliarcec\UserCommands\Tests\Models\User;
 use Luilliarcec\UserCommands\Tests\TestCase;
+use Spatie\Permission\Models\Permission;
 
 class CreateNewUserTest extends TestCase
 {
@@ -136,6 +137,38 @@ class CreateNewUserTest extends TestCase
             'email' => 'luis@email.com',
             'username' => 'larcec',
             'address' => 'New York'
+        ]);
+    }
+
+    /** @test */
+    public function check_that_the_user_is_saved_with_permissions()
+    {
+        $permission1 = Permission::create(['name' => 'user-create']);
+        $permission2 = Permission::create(['name' => 'user-edit']);
+
+        $this->artisan('user:create -p "user-create" -p "user-edit"')
+            ->expectsQuestion('name:', 'Luis Arce')
+            ->expectsQuestion('email:', 'luis@email.com')
+            ->expectsQuestion('password:', 'password')
+            ->expectsQuestion('password confirmation:', 'password')
+            ->expectsOutput('The user was created successfully!')
+            ->assertExitCode(0);
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'Luis Arce',
+            'email' => 'luis@email.com',
+        ]);
+
+        $this->assertDatabaseHas('model_has_permissions', [
+            'model_type' => User::class,
+            'model_id' => 1,
+            'permission_id' => $permission1->getKey()
+        ]);
+
+        $this->assertDatabaseHas('model_has_permissions', [
+            'model_type' => User::class,
+            'model_id' => 1,
+            'permission_id' => $permission2->getKey()
         ]);
     }
 }

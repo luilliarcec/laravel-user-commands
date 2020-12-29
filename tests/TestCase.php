@@ -5,6 +5,9 @@ namespace Luilliarcec\UserCommands\Tests;
 use Luilliarcec\UserCommands\Tests\Models\User;
 use Luilliarcec\UserCommands\UserCommandsServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -29,7 +32,10 @@ class TestCase extends Orchestra
      */
     protected function getPackageProviders($app)
     {
-        return [UserCommandsServiceProvider::class];
+        return [
+            UserCommandsServiceProvider::class,
+            PermissionServiceProvider::class,
+        ];
     }
 
     /**
@@ -43,7 +49,7 @@ class TestCase extends Orchestra
     {
         /** Config */
         $app['config']->set('user-commands.user', User::class);
-        $app['config']->set('user-commands.permission.model', null);
-        $app['config']->set('user-commands.role.model', null);
+        $app['config']->set('user-commands.permission.model', Permission::class);
+        $app['config']->set('user-commands.role.model', Role::class);
     }
 }

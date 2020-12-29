@@ -21,7 +21,7 @@ class CreateNewUserTest extends TestCase
             ->expectsOutput('The password field is required.')
             ->assertExitCode(1);
 
-        $this->assertDatabaseCount('users', 0);
+        $this->assertEquals(0, User::query()->count());
     }
 
     /** @test */

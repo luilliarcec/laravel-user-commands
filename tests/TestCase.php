@@ -51,5 +51,12 @@ class TestCase extends Orchestra
         $app['config']->set('user-commands.user', User::class);
         $app['config']->set('user-commands.permission.model', Permission::class);
         $app['config']->set('user-commands.role.model', Role::class);
+
+        $app['config']->set('auth.providers', [
+            'users' => [
+                'driver' => 'eloquent',
+                'model' => User::class,
+            ]
+        ]);
     }
 }

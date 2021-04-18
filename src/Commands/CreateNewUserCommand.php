@@ -36,10 +36,10 @@ class CreateNewUserCommand extends UserCommand
     {
         $this->user = $this->newUserInstance();
 
-        $name = $this->ask('name:');
-        $email = $this->ask('email:');
-        $password = $this->secret('password:');
-        $password_confirmation = $this->secret('password confirmation:');
+        $name = $this->ask('name');
+        $email = $this->ask('email');
+        $password = $this->secret('password');
+        $password_confirmation = $this->secret('password confirmation');
 
         $passes = $this->validate([
             'name' => $name,

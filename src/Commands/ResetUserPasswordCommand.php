@@ -28,8 +28,8 @@ class ResetUserPasswordCommand extends UserCommand
      */
     public function handle()
     {
-        $password = $this->secret('password:');
-        $password_confirmation = $this->secret('password confirmation:');
+        $password = $this->secret('password');
+        $password_confirmation = $this->secret('password confirmation');
 
         $passes = $this->validate([
             'password' => $password,

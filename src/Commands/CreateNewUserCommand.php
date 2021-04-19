@@ -12,6 +12,13 @@ use Illuminate\Validation\Rule;
 class CreateNewUserCommand extends UserCommand
 {
     /**
+     * Valid data of the user to be created
+     *
+     * @var array
+     */
+    protected $data;
+
+    /**
      * The name and signature of the console command.
      *
      * @var string
@@ -31,6 +38,8 @@ class CreateNewUserCommand extends UserCommand
 
     /**
      * Execute the console command.
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function handle(): int
     {
@@ -74,6 +83,8 @@ class CreateNewUserCommand extends UserCommand
      *
      * @param array $data
      * @return bool
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     protected function validate(array $data): bool
     {
@@ -88,6 +99,8 @@ class CreateNewUserCommand extends UserCommand
 
             return false;
         }
+
+        $this->data = $validator->validated();
 
         return true;
     }

@@ -12,7 +12,7 @@ class RestoreUserCommand extends UserCommand
      */
     protected $signature = 'user:restore
                             {value : Get user for a value (by email, id)}
-                            {field? : Field to search by}';
+                            {--f|field= : Field to search by}';
 
     /**
      * The console command description.
@@ -53,7 +53,7 @@ class RestoreUserCommand extends UserCommand
     protected function getUserModel(): ?\Illuminate\Database\Eloquent\Model
     {
         $value = $this->argument('value');
-        $field = $this->argument('field');
+        $field = $this->option('field');
 
         if ($field) {
             return $this->user::onlyTrashed()

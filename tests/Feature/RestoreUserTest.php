@@ -54,6 +54,26 @@ class RestoreUserTest extends TestCase
     }
 
     /** @test */
+    public function the_user_is_restored_by_field_shortcut_value()
+    {
+        User::create([
+            'name' => 'Luis Arce',
+            'username' => 'larcec',
+            'email' => 'luis@email.com',
+            'password' => bcrypt('12341234'),
+        ])->delete();
+
+        $this->artisan('user:restore larcec -f username')
+            ->expectsOutput('User restored successfully!')
+            ->assertExitCode(0);
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'luis@email.com',
+            'deleted_at' => null
+        ]);
+    }
+
+    /** @test */
     public function the_user_is_restored_by_field_value()
     {
         User::create([
@@ -63,7 +83,7 @@ class RestoreUserTest extends TestCase
             'password' => bcrypt('12341234'),
         ])->delete();
 
-        $this->artisan('user:restore larcec username')
+        $this->artisan('user:restore larcec --field username')
             ->expectsOutput('User restored successfully!')
             ->assertExitCode(0);
 

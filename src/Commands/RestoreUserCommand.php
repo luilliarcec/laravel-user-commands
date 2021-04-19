@@ -24,7 +24,7 @@ class RestoreUserCommand extends UserCommand
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         $user = $this->getUserModel();
 
@@ -50,7 +50,7 @@ class RestoreUserCommand extends UserCommand
      *
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    protected function getUserModel()
+    protected function getUserModel(): ?\Illuminate\Database\Eloquent\Model
     {
         $value = $this->argument('value');
         $field = $this->argument('field');

@@ -32,7 +32,7 @@ class CreateNewUserCommand extends UserCommand
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         $this->user = $this->newUserInstance();
 
@@ -119,7 +119,7 @@ class CreateNewUserCommand extends UserCommand
     /**
      * Mark the email as verified or send a verification email
      */
-    protected function verified()
+    protected function verified(): ?bool
     {
         if ($this->option('verified')) {
             return $this->user->markEmailAsVerified();

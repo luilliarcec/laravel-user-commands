@@ -26,7 +26,7 @@ class ResetUserPasswordCommand extends UserCommand
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         $password = $this->secret('password');
         $password_confirmation = $this->secret('password confirmation');

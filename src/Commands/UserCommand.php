@@ -68,7 +68,7 @@ class UserCommand extends Command
      *
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    protected function getUserModel()
+    protected function getUserModel(): ?\Illuminate\Database\Eloquent\Model
     {
         $value = $this->argument('value');
         $field = $this->argument('field');

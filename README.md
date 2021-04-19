@@ -91,7 +91,13 @@ php artisan user:reset-password luis@email.com
 However if you want to search for a specific field you can pass it after the value
 
 ```bash
-php artisan user:reset-password larcec username
+php artisan user:reset-password larcec -f username
+```
+
+or
+
+```bash
+php artisan user:reset-password larcec --field username
 ```
 
 After executing the command it will ask you to enter a new password and confirm it
@@ -108,7 +114,7 @@ php artisan user:delete luis@email.com
 or
 
 ```bash
-php artisan user:delete larcec username
+php artisan user:delete larcec --field username
 ```
 
 If your model uses logical elimination, 
@@ -116,7 +122,7 @@ this is executed by default,
 however if you want to eliminate completely you can pass the --force argument
 
 ```bash
-php artisan user:delete larcec username --force
+php artisan user:delete larcec --field username --force
 ```
 
 ### Restore Users
@@ -131,7 +137,7 @@ php artisan user:restore luis@email.com
 or
 
 ```bash
-php artisan user:restore larcec username
+php artisan user:restore larcec --field username
 ```
 
 Note that this command will only run if your model uses SoftDelete trait

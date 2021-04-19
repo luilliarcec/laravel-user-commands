@@ -54,6 +54,26 @@ class DeleteUserTest extends TestCase
     }
 
     /** @test */
+    public function the_user_is_deleted_by_field_shortcut_value()
+    {
+        User::create([
+            'name' => 'Luis Arce',
+            'username' => 'larcec',
+            'email' => 'luis@email.com',
+            'password' => bcrypt('12341234')
+        ]);
+
+        $this->artisan('user:delete larcec -f username')
+            ->expectsOutput('User deleted successfully!')
+            ->assertExitCode(0);
+
+        $this->assertDatabaseMissing('users', [
+            'email' => 'luis@email.com',
+            'deleted_at' => null
+        ]);
+    }
+
+    /** @test */
     public function the_user_is_deleted_by_field_value()
     {
         User::create([
@@ -63,7 +83,7 @@ class DeleteUserTest extends TestCase
             'password' => bcrypt('12341234')
         ]);
 
-        $this->artisan('user:delete larcec username')
+        $this->artisan('user:delete larcec --field username')
             ->expectsOutput('User deleted successfully!')
             ->assertExitCode(0);
 

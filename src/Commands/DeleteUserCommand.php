@@ -12,7 +12,7 @@ class DeleteUserCommand extends UserCommand
      */
     protected $signature = 'user:delete
                             {value : Get user for a value (by email, id)}
-                            {field? : Field to search by}
+                            {--f|field= : Field to search by}
                             {--force}';
 
     /**

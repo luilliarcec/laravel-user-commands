@@ -70,6 +70,28 @@ class ResetUserPasswordTest extends TestCase
     }
 
     /** @test */
+    public function the_user_is_reseted_by_field_shortcut_value()
+    {
+        User::create([
+            'name' => 'Luis Arce',
+            'username' => 'larcec',
+            'email' => 'luis@email.com',
+            'password' => bcrypt('12341234')
+        ]);
+
+        $this->artisan('user:reset-password larcec -f username')
+            ->expectsQuestion('password', 'password')
+            ->expectsQuestion('password confirmation', 'password')
+            ->expectsOutput('User password was successfully restored!')
+            ->assertExitCode(0);
+
+        $this->assertCredentials([
+            'email' => 'luis@email.com',
+            'password' => 'password'
+        ]);
+    }
+
+    /** @test */
     public function the_user_is_reseted_by_field_value()
     {
         User::create([
@@ -79,7 +101,7 @@ class ResetUserPasswordTest extends TestCase
             'password' => bcrypt('12341234')
         ]);
 
-        $this->artisan('user:reset-password larcec username')
+        $this->artisan('user:reset-password larcec --field username')
             ->expectsQuestion('password', 'password')
             ->expectsQuestion('password confirmation', 'password')
             ->expectsOutput('User password was successfully restored!')

@@ -14,7 +14,7 @@ class ResetUserPasswordCommand extends UserCommand
      */
     protected $signature = 'user:reset-password
                             {value : Get user for a value (by email, id)}
-                            {field? : Field to search by}';
+                            {--f|field= : Field to search by}';
 
     /**
      * The console command description.

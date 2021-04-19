@@ -71,7 +71,7 @@ class UserCommand extends Command
     protected function getUserModel(): ?\Illuminate\Database\Eloquent\Model
     {
         $value = $this->argument('value');
-        $field = $this->argument('field');
+        $field = $this->option('field');
 
         if ($field) {
             return $this->user::query()

@@ -59,14 +59,8 @@ class CreateNewUserCommand extends UserCommand
 
         if (!$passes) return 1;
 
-        DB::transaction(function () use ($name, $email, $password) {
-            $this->save(
-                array_merge($this->attributes(), [
-                    'name' => $name,
-                    'email' => $email,
-                    'password' => Hash::make($password),
-                ])
-            );
+        DB::transaction(function () {
+            $this->save($this->prepareForSave());
 
             $this->verified();
             $this->permissions();
@@ -76,6 +70,33 @@ class CreateNewUserCommand extends UserCommand
         });
 
         return 0;
+    }
+
+    /**
+     * Prepare the data to save and include your necessary data
+     *
+     * @return array
+     */
+    protected function prepareForSave(): array
+    {
+        $this->data['password'] = Hash::make($this->data['password']);
+
+        return $this->merge([]);
+    }
+
+    /**
+     * Merge new input into the current data user.
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function merge(array $data): array
+    {
+        return array_merge(
+            $this->attributes(),
+            $this->data,
+            $data
+        );
     }
 
     /**

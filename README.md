@@ -6,8 +6,8 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/luilliarcec/laravel-user-commands)](https://packagist.org/packages/luilliarcec/laravel-user-commands)
 [![GitHub license](https://img.shields.io/github/license/luilliarcec/laravel-user-commands)](https://github.com/luilliarcec/laravel-user-commands/blob/develop/LICENSE.md)
 
-If like me, you have ever considered having commands to manipulate users within your application, 
-this package will help you.
+If like me, you have ever considered having commands to manipulate users within your application, this package will help
+you.
 
 ## Installation
 
@@ -29,12 +29,8 @@ That is all. 😀
 
 The package has 4 basic commands
 
-| Commands | Description |
-| -- | -- |
-| user:create | Create a new user in your app |
-| user:reset-password | Restore a user's password |
-| user:delete | Delete a user |
-| user:restore | Restore a user |
+| Commands | Description | | -- | -- | | user:create | Create a new user in your app | | user:reset-password | Restore a
+user's password | | user:delete | Delete a user | | user:restore | Restore a user |
 
 ### Create Users
 
@@ -42,9 +38,9 @@ The package has 4 basic commands
 php artisan user:create
 ```
 
-The create command has 3 mandatory entries 
-(`name`, `email` and `password`) also if your user model has more attributes you can pass it 
-inline in the following way.
+The create command has 3 mandatory entries
+(`name`, `email` and `password`) also if your user model has more attributes you can pass it inline in the following
+way.
 
 ```bash
 php artisan user:create -a username:larcec -a "other_field:Value of field"
@@ -62,9 +58,8 @@ If you want to mark the user's email as verified you can pass the argument `--ve
 php artisan user:create --verified
 ```
 
-If your model uses roles and permissions, 
-you must configure the model of the roles and permissions and the name of the relationships 
-in the configuration file.
+If your model uses roles and permissions, you must configure the model of the roles and permissions and the name of the
+relationships in the configuration file.
 
 You can then pass the permissions or roles as arguments.
 
@@ -75,14 +70,40 @@ php artisan user:create -p "user-create" -p "user-edit"
 It should be noted that the `roles` and `permissions`  
 must already exist in your database and will be searched by the `name` field
 
-Once the user has been created, 
-the `notification` that it has been created will be sent if it implements 
+Once the user has been created, the `notification` that it has been created will be sent if it implements
 the `MustVerifyEmail` interface and if the `verification.verify` route name exists
+
+If you want to apply your own logic or just save default data for all users, you can extend the command and apply your
+necessary logic, or copy the `prepareForSave` method and add your necessary data. Ex.:
+
+```php
+<?php
+
+namespace App\Commands;
+
+use Luilliarcec\UserCommands\Commands\CreateNewUserCommand as CreateNewUserCommandBase;
+
+class CreateNewUserCommand extends CreateNewUserCommandBase
+{
+    protected function prepareForSave(): array
+    {
+        $this->data['password'] = Hash::make($this->data['password']);
+
+        return $this->merge([
+            'username' => Username::make($this->data['name'])
+        ]);
+    }
+}
+```
+
+`$this->data` will contain the data of the user that was asked, if you want to access your data that you entered with
+the `--attribute` flag you can do it by calling the `attributes` function which will return a `key => value` 
+array with your data.
 
 ### Reset Password User
 
-The command to `reset password user` receives the value parameter as required. 
-It will be searched by `email` and if it is not found it will be searched by `id`
+The command to `reset password user` receives the value parameter as required. It will be searched by `email` and if it
+is not found it will be searched by `id`
 
 ```bash
 php artisan user:reset-password luis@email.com
@@ -104,8 +125,8 @@ After executing the command it will ask you to enter a new password and confirm 
 
 ### Delete Users
 
-In the same way as the command to `reset password user`, 
-the user is searched by email or id or by specifying a specific field.
+In the same way as the command to `reset password user`, the user is searched by email or id or by specifying a specific
+field.
 
 ```bash
 php artisan user:delete luis@email.com
@@ -117,9 +138,8 @@ or
 php artisan user:delete larcec --field username
 ```
 
-If your model uses logical elimination, 
-this is executed by default, 
-however if you want to eliminate completely you can pass the --force argument
+If your model uses logical elimination, this is executed by default, however if you want to eliminate completely you can
+pass the --force argument
 
 ```bash
 php artisan user:delete larcec --field username --force
@@ -127,8 +147,8 @@ php artisan user:delete larcec --field username --force
 
 ### Restore Users
 
-In the same way as the command to `reset password user`, 
-the user is searched by email or id or by specifying a specific field.
+In the same way as the command to `reset password user`, the user is searched by email or id or by specifying a specific
+field.
 
 ```bash
 php artisan user:restore luis@email.com

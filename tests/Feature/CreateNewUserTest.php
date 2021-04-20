@@ -171,4 +171,21 @@ class CreateNewUserTest extends TestCase
             'permission_id' => $permission2->getKey()
         ]);
     }
+
+    /** @test */
+    public function check_that_the_user_is_saved_with_password_encrypted()
+    {
+        $this->artisan('user:create')
+            ->expectsQuestion('name', 'Luis Arce')
+            ->expectsQuestion('email', 'luis@email.com')
+            ->expectsQuestion('password', 'password')
+            ->expectsQuestion('password confirmation', 'password')
+            ->expectsOutput('The user was created successfully!')
+            ->assertExitCode(0);
+
+        $this->assertCredentials([
+            'email' => 'luis@email.com',
+            'password' => 'password',
+        ]);
+    }
 }

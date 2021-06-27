@@ -12,6 +12,11 @@ use Illuminate\Validation\Rule;
 class CreateNewUserCommand extends UserCommand
 {
     /**
+     * Passwords fields
+     */
+    protected const PASS_FIELDS = ['password', 'pass'];
+
+    /**
      * Valid data of the user to be created
      *
      * @var array

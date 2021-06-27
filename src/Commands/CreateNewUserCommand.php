@@ -12,6 +12,11 @@ use Illuminate\Validation\Rule;
 class CreateNewUserCommand extends UserCommand
 {
     /**
+     * Passwords fields
+     */
+    protected const PASS_FIELDS = ['password', 'pass'];
+
+    /**
      * Valid data of the user to be created
      *
      * @var array
@@ -45,17 +50,7 @@ class CreateNewUserCommand extends UserCommand
     {
         $this->user = $this->newUserInstance();
 
-        $name = $this->ask('name');
-        $email = $this->ask('email');
-        $password = $this->secret('password');
-        $password_confirmation = $this->secret('password confirmation');
-
-        $passes = $this->validate([
-            'name' => $name,
-            'email' => $email,
-            'password' => $password,
-            'password_confirmation' => $password_confirmation
-        ]);
+        $passes = $this->validate($this->askFields());
 
         if (!$passes) return 1;
 
@@ -70,6 +65,55 @@ class CreateNewUserCommand extends UserCommand
         });
 
         return 0;
+    }
+
+    /**
+     * Ask data
+     *
+     * @return array
+     */
+    protected function askFields(): array
+    {
+        $data = $this->askFillableFields();
+
+        return $data ?: $this->askDefaultFields();
+    }
+
+    /**
+     * Ask data from fields defined as fillable
+     *
+     * @return array
+     */
+    protected function askFillableFields(): array
+    {
+        $fillable = $this->user->getFillable();
+
+        $data = [];
+
+        foreach ($fillable as $field) {
+            $data[$field] = $this->ask(str_replace('_', ' ', $field));
+
+            if (in_array($field, self::PASS_FIELDS)) {
+                $data[$field . '_confirmation'] = $this->ask($field . ' confirmation');
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Ask default data
+     *
+     * @return array
+     */
+    protected function askDefaultFields(): array
+    {
+        return [
+            'name' => $this->ask('name'),
+            'email' => $this->ask('email'),
+            'password' => $this->ask('password'),
+            'password_confirmation' => $this->ask('password confirmation'),
+        ];
     }
 
     /**

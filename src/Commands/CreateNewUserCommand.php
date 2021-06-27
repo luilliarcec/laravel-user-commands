@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Str;
 
 class CreateNewUserCommand extends UserCommand
 {
@@ -65,6 +66,28 @@ class CreateNewUserCommand extends UserCommand
         });
 
         return 0;
+    }
+
+    /**
+     * Ask data from fields defined as fillable
+     *
+     * @return array
+     */
+    protected function askFillableFields(): array
+    {
+        $fillable = $this->user->getFillable();
+
+        $data = [];
+
+        foreach ($fillable as $field) {
+            $data[$field] = $this->ask(Str::replace('_', ' ', $field));
+
+            if (in_array($field, self::PASS_FIELDS)) {
+                $data[$field . '_confirmation'] = $this->ask($field . ' confirmation');
+            }
+        }
+
+        return $data;
     }
 
     /**

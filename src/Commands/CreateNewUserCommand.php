@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Str;
 
 class CreateNewUserCommand extends UserCommand
 {
@@ -92,7 +91,7 @@ class CreateNewUserCommand extends UserCommand
         $data = [];
 
         foreach ($fillable as $field) {
-            $data[$field] = $this->ask(Str::replace('_', ' ', $field));
+            $data[$field] = $this->ask(str_replace('_', ' ', $field));
 
             if (in_array($field, self::PASS_FIELDS)) {
                 $data[$field . '_confirmation'] = $this->ask($field . ' confirmation');

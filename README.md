@@ -29,8 +29,12 @@ That is all. 😀
 
 The package has 4 basic commands
 
-| Commands | Description | | -- | -- | | user:create | Create a new user in your app | | user:reset-password | Restore a
-user's password | | user:delete | Delete a user | | user:restore | Restore a user |
+| Commands | Description | 
+| --- | --- | 
+| user:create | Create a new user in your app | 
+| user:reset-password | Restore a user's password | 
+| user:delete | Delete a user | 
+| user:restore | Restore a user |
 
 ### Create Users
 
@@ -41,6 +45,8 @@ php artisan user:create
 The create command has 3 mandatory entries
 (`name`, `email` and `password`) also if your user model has more attributes you can pass it inline in the following
 way.
+
+Since version 2.2.0, fields are taken from your fillable method defined in your model.
 
 ```bash
 php artisan user:create -a username:larcec -a "other_field:Value of field"
@@ -97,7 +103,7 @@ class CreateNewUserCommand extends CreateNewUserCommandBase
 ```
 
 `$this->data` will contain the data of the user that was asked, if you want to access your data that you entered with
-the `--attribute` flag you can do it by calling the `attributes` function which will return a `key => value` 
+the `--attribute` flag you can do it by calling the `attributes` function which will return a `key => value`
 array with your data.
 
 ### Reset Password User

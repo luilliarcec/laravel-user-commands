@@ -45,17 +45,7 @@ class CreateNewUserCommand extends UserCommand
     {
         $this->user = $this->newUserInstance();
 
-        $name = $this->ask('name');
-        $email = $this->ask('email');
-        $password = $this->secret('password');
-        $password_confirmation = $this->secret('password confirmation');
-
-        $passes = $this->validate([
-            'name' => $name,
-            'email' => $email,
-            'password' => $password,
-            'password_confirmation' => $password_confirmation
-        ]);
+        $passes = $this->validate($this->askDefaultField());
 
         if (!$passes) return 1;
 
@@ -70,6 +60,21 @@ class CreateNewUserCommand extends UserCommand
         });
 
         return 0;
+    }
+
+    /**
+     * Ask default data
+     *
+     * @return array
+     */
+    protected function askDefaultField(): array
+    {
+        return [
+            'name' => $this->ask('name'),
+            'email' => $this->ask('email'),
+            'password' => $this->ask('password'),
+            'password_confirmation' => $this->ask('password confirmation'),
+        ];
     }
 
     /**

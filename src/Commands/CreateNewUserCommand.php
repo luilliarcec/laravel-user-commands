@@ -95,7 +95,7 @@ class CreateNewUserCommand extends UserCommand
      *
      * @return array
      */
-    protected function askDefaultField(): array
+    protected function askDefaultFields(): array
     {
         return [
             'name' => $this->ask('name'),

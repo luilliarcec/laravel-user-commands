@@ -51,7 +51,7 @@ class CreateNewUserCommand extends UserCommand
     {
         $this->user = $this->newUserInstance();
 
-        $passes = $this->validate($this->askDefaultField());
+        $passes = $this->validate($this->askFields());
 
         if (!$passes) return 1;
 
@@ -66,6 +66,18 @@ class CreateNewUserCommand extends UserCommand
         });
 
         return 0;
+    }
+
+    /**
+     * Ask data
+     *
+     * @return array
+     */
+    protected function askFields(): array
+    {
+        $data = $this->askFillableFields();
+
+        return $data ?: $this->askDefaultFields();
     }
 
     /**

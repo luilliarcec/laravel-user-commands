@@ -3,6 +3,8 @@
 return [
     'user' => '\App\Models\User',
 
+    'fields' => [],
+
     'permission' => [
         'model' => null,
         'relation' => 'permissions',

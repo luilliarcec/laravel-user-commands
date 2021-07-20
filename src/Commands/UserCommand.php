@@ -12,6 +12,11 @@ class UserCommand extends Command
     protected $user;
 
     /**
+     * @var array
+     */
+    protected $fields;
+
+    /**
      * @var \Illuminate\Database\Eloquent\Model|string|null
      */
     protected $permission;
@@ -29,6 +34,7 @@ class UserCommand extends Command
         parent::__construct();
 
         $this->user = config('user-commands.user');
+        $this->fields = config('user-commands.fields');
         $this->permission = config('user-commands.permission.model');
         $this->role = config('user-commands.role.model');
     }

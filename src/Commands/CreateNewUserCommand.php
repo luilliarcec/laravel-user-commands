@@ -74,9 +74,31 @@ class CreateNewUserCommand extends UserCommand
      */
     protected function askFields(): array
     {
-        $data = $this->askFillableFields();
+        $data = $this->askConfigFields();
+
+        $data = $data ?: $this->askFillableFields();
 
         return $data ?: $this->askDefaultFields();
+    }
+
+    /**
+     * Ask data from fields defined in your config file
+     *
+     * @return array
+     */
+    protected function askConfigFields(): array
+    {
+        $data = [];
+
+        foreach ($this->fields as $field) {
+            $data[$field] = $this->ask(str_replace('_', ' ', $field));
+
+            if (in_array($field, self::PASS_FIELDS)) {
+                $data[$field . '_confirmation'] = $this->ask($field . ' confirmation');
+            }
+        }
+
+        return $data;
     }
 
     /**

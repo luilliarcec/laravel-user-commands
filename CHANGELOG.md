@@ -4,9 +4,10 @@ All notable changes to `laravel-user-commands` will be documented in this file
 
 ## 3.0.0 - 2021-07-20
 - Fixed the bug that did not allow saving the user when the fillable property was used.
-- Removed default fields and default rules
-- Added two keys to config file `fields` and` rules`
+- Removed default fields and default rules.
+- Added two keys to config file `fields` and` rules`.
 - Added rule `filled` dynamically to all your fields defined in your fillable property and/or in your config file.
+- Add Dynamic question for fields that need to be confirmed.
 
 ## 2.2.0 - 2021-06-27
 - Add support for asking fillable fields 

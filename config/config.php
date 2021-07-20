@@ -5,6 +5,8 @@ return [
 
     'fields' => [],
 
+    'rules' => [],
+
     'permission' => [
         'model' => null,
         'relation' => 'permissions',

@@ -199,9 +199,7 @@ class CreateNewUserCommand extends UserCommand
      */
     protected function rules(): array
     {
-        $rules = array_merge($this->fillableRules(), $this->defaultRules());
-
-        return $rules;
+        return $this->rules ?: array_merge($this->fillableRules(), $this->defaultRules());
     }
 
     protected function fillableRules(): array

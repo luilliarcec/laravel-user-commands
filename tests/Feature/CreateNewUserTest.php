@@ -200,6 +200,14 @@ class CreateNewUserTest extends TestCase
             'password',
         ]);
 
+        $this->app['config']->set('user-commands.rules', [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:254|unique:users',
+            'password' => 'required|string|confirmed',
+            'username' => 'filled',
+            'address' => 'filled',
+        ]);
+
         $this->artisan('user:create')
             ->expectsQuestion('name', 'Luis Arce')
             ->expectsQuestion('email', 'luis@email.com')

@@ -179,7 +179,7 @@ class CreateNewUserCommand extends UserCommand
      */
     protected function rules(): array
     {
-        return $this->rules ?: $this->filledFieldsRule();
+        return array_merge($this->filledFieldsRule(), $this->rules);
     }
 
     /**

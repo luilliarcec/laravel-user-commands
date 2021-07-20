@@ -204,8 +204,6 @@ class CreateNewUserTest extends TestCase
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:254|unique:users',
             'password' => 'required|string|confirmed',
-            'username' => 'filled',
-            'address' => 'filled',
         ]);
 
         $this->artisan('user:create')

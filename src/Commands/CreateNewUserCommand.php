@@ -84,12 +84,15 @@ class CreateNewUserCommand extends UserCommand
     protected function askConfigFields(): array
     {
         $data = [];
+        $rules = $this->rules();
 
         foreach ($this->fields as $field) {
             $data[$field] = $this->ask(str_replace('_', ' ', $field));
 
-            if (in_array($field, self::PASS_FIELDS)) {
-                $data[$field . '_confirmation'] = $this->ask($field . ' confirmation');
+            if (isset($rules[$field])) {
+                if ($this->confirmedFieldMustBeAsked($rules, $field)) {
+                    $data[$field . '_confirmation'] = $this->ask($field . ' confirmation');
+                }
             }
         }
 
@@ -286,5 +289,18 @@ class CreateNewUserCommand extends UserCommand
         }
 
         return $attributes;
+    }
+
+    /**
+     * Checks if a field should be asked the confirmed
+     *
+     * @param string|array $rules
+     * @param string $field
+     * @return bool
+     */
+    private function confirmedFieldMustBeAsked($rules, string $field): bool
+    {
+        return is_array($rules[$field]) && in_array('confirmed', $rules[$field])
+            || is_string($rules[$field]) && str_contains($rules[$field], 'confirmed');
     }
 }

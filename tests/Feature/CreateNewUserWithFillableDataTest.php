@@ -96,6 +96,8 @@ class CreateNewUserWithFillableDataTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => 'Luis Arce',
             'email' => 'luis@email.com',
+            'username' => 'larcec',
+            'address' => 'New York',
         ]);
     }
 
@@ -115,6 +117,8 @@ class CreateNewUserWithFillableDataTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => 'Luis',
             'email' => 'luis@email.com',
+            'username' => 'larcec',
+            'address' => 'New York',
         ]);
 
         $this->assertDatabaseMissing('users', [
@@ -132,8 +136,8 @@ class CreateNewUserWithFillableDataTest extends TestCase
             ->expectsQuestion('email', 'luis@email.com')
             ->expectsQuestion('password', 'password')
             ->expectsQuestion('password confirmation', 'password')
-            ->expectsQuestion('username', '')
-            ->expectsQuestion('address', '')
+            ->expectsQuestion('username', 'dummy')
+            ->expectsQuestion('address', 'dummy')
             ->expectsOutput('The user was created successfully!')
             ->assertExitCode(0);
 
@@ -153,8 +157,8 @@ class CreateNewUserWithFillableDataTest extends TestCase
             ->expectsQuestion('email', 'luis@email.com')
             ->expectsQuestion('password', 'password')
             ->expectsQuestion('password confirmation', 'password')
-            ->expectsQuestion('username', '')
-            ->expectsQuestion('address', '')
+            ->expectsQuestion('username', 'dummy')
+            ->expectsQuestion('address', 'dummy')
             ->expectsOutput('The user was created successfully!')
             ->assertExitCode(0);
 
@@ -177,8 +181,8 @@ class CreateNewUserWithFillableDataTest extends TestCase
             ->expectsQuestion('email', 'luis@email.com')
             ->expectsQuestion('password', 'password')
             ->expectsQuestion('password confirmation', 'password')
-            ->expectsQuestion('username', '')
-            ->expectsQuestion('address', '')
+            ->expectsQuestion('username', 'dummy')
+            ->expectsQuestion('address', 'dummy')
             ->expectsOutput('The user was created successfully!')
             ->assertExitCode(0);
 
@@ -208,8 +212,8 @@ class CreateNewUserWithFillableDataTest extends TestCase
             ->expectsQuestion('email', 'luis@email.com')
             ->expectsQuestion('password', 'password')
             ->expectsQuestion('password confirmation', 'password')
-            ->expectsQuestion('username', '')
-            ->expectsQuestion('address', '')
+            ->expectsQuestion('username', 'dummy')
+            ->expectsQuestion('address', 'dummy')
             ->expectsOutput('The user was created successfully!')
             ->assertExitCode(0);
 

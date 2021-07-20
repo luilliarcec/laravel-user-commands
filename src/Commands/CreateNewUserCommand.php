@@ -159,8 +159,8 @@ class CreateNewUserCommand extends UserCommand
     protected function merge(array $data): array
     {
         return array_merge(
-            $this->attributes(),
             $this->data,
+            $this->attributes(),
             $data
         );
     }
@@ -198,6 +198,24 @@ class CreateNewUserCommand extends UserCommand
      * @return array
      */
     protected function rules(): array
+    {
+        $rules = array_merge($this->fillableRules(), $this->defaultRules());
+
+        return $rules;
+    }
+
+    protected function fillableRules(): array
+    {
+        $rules = [];
+
+        foreach ($this->user->getFillable() as $field) {
+            $rules[$field] = 'filled';
+        }
+
+        return $rules;
+    }
+
+    protected function defaultRules(): array
     {
         return [
             'name' => ['required', 'string', 'max:255'],

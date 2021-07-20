@@ -49,6 +49,7 @@ class TestCase extends Orchestra
     {
         /** Config */
         $app['config']->set('user-commands.user', User::class);
+        $app['config']->set('user-commands.fields', []);
         $app['config']->set('user-commands.permission.model', Permission::class);
         $app['config']->set('user-commands.role.model', Role::class);
 

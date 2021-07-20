@@ -188,4 +188,33 @@ class CreateNewUserTest extends TestCase
             'password' => 'password',
         ]);
     }
+
+    /** @test */
+    public function check_that_the_fields_registered_in_the_config_file_are_asked()
+    {
+        $this->app['config']->set('user-commands.fields', [
+            'name',
+            'email',
+            'username',
+            'address',
+            'password',
+        ]);
+
+        $this->artisan('user:create')
+            ->expectsQuestion('name', 'Luis Arce')
+            ->expectsQuestion('email', 'luis@email.com')
+            ->expectsQuestion('username', 'larcec')
+            ->expectsQuestion('address', 'Guayaquil')
+            ->expectsQuestion('password', 'password')
+            ->expectsQuestion('password confirmation', 'password')
+            ->expectsOutput('The user was created successfully!')
+            ->assertExitCode(0);
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'Luis Arce',
+            'email' => 'luis@email.com',
+            'username' => 'larcec',
+            'address' => 'Guayaquil'
+        ]);
+    }
 }

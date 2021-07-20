@@ -56,6 +56,8 @@ class TestCase extends Orchestra
             'password'
         ]);
 
+        $app['config']->set('user-commands.hash_fields', ['password']);
+
         $app['config']->set('user-commands.rules', [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:254|unique:users',

@@ -19,6 +19,11 @@ class UserCommand extends Command
     /**
      * @var array
      */
+    protected $hash_fields;
+
+    /**
+     * @var array
+     */
     protected $rules;
 
     /**
@@ -40,6 +45,7 @@ class UserCommand extends Command
 
         $this->user = config('user-commands.user');
         $this->fields = config('user-commands.fields');
+        $this->hash_fields = config('user-commands.hash_fields');
         $this->rules = config('user-commands.rules');
         $this->permission = config('user-commands.permission.model');
         $this->role = config('user-commands.role.model');

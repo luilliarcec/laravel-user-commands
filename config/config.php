@@ -12,6 +12,11 @@ return [
     'fields' => [],
 
     /**
+     * Register here the fields that are hashed before being saved
+     */
+    'hash_fields' => [],
+
+    /**
      * Register here the rules you want to apply to your fields
      */
     'rules' => [],

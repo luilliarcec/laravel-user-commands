@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class CreateNewUserCommand extends UserCommand
 {
@@ -74,11 +73,7 @@ class CreateNewUserCommand extends UserCommand
      */
     protected function askFields(): array
     {
-        $data = $this->askConfigFields();
-
-        $data = $data ?: $this->askFillableFields();
-
-        return $data ?: $this->askDefaultFields();
+        return $this->askConfigFields() ?: $this->askFillableFields();
     }
 
     /**
@@ -121,21 +116,6 @@ class CreateNewUserCommand extends UserCommand
         }
 
         return $data;
-    }
-
-    /**
-     * Ask default data
-     *
-     * @return array
-     */
-    protected function askDefaultFields(): array
-    {
-        return [
-            'name' => $this->ask('name'),
-            'email' => $this->ask('email'),
-            'password' => $this->ask('password'),
-            'password_confirmation' => $this->ask('password confirmation'),
-        ];
     }
 
     /**
@@ -193,27 +173,13 @@ class CreateNewUserCommand extends UserCommand
     }
 
     /**
-     * Rules to be applied by default
-     *
-     * @return array
-     */
-    protected function defaultRules(): array
-    {
-        return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique($this->user->getTable())],
-            'password' => ['required', 'string', 'confirmed'],
-        ];
-    }
-
-    /**
      * Validation rules
      *
      * @return array
      */
-    private function rules(): array
+    protected function rules(): array
     {
-        return $this->rules ?: array_merge($this->filledFieldsRule(), $this->defaultRules());
+        return $this->rules ?: $this->filledFieldsRule();
     }
 
     /**
@@ -221,7 +187,7 @@ class CreateNewUserCommand extends UserCommand
      *
      * @return array
      */
-    private function filledFieldsRule(): array
+    protected function filledFieldsRule(): array
     {
         $fields = $this->fields ?: $this->user->getFillable();
 

@@ -18,6 +18,8 @@ class CreateNewUserWithFillableDataTest extends TestCase
         parent::setUp();
 
         $this->app['config']->set('user-commands.user', User::class);
+        $this->app['config']->set('user-commands.fields', []);
+        $this->app['config']->set('user-commands.rules', []);
     }
 
     /** @test */
@@ -30,9 +32,9 @@ class CreateNewUserWithFillableDataTest extends TestCase
             ->expectsQuestion('password confirmation', 'password')
             ->expectsQuestion('username', 'larcec')
             ->expectsQuestion('address', 'New York')
-            ->expectsOutput('The name field is required.')
-            ->expectsOutput('The email field is required.')
-            ->expectsOutput('The password field is required.')
+            ->expectsOutput('The name field must have a value.')
+            ->expectsOutput('The email field must have a value.')
+            ->expectsOutput('The password field must have a value.')
             ->assertExitCode(1);
 
         $this->assertEquals(0, User::query()->count());
@@ -41,6 +43,10 @@ class CreateNewUserWithFillableDataTest extends TestCase
     /** @test */
     public function check_that_the_email_is_unique()
     {
+        $this->app['config']->set('user-commands.rules', [
+            'email' => 'required|string|email|max:254|unique:users'
+        ]);
+
         User::create([
             'name' => 'Luis Arce',
             'email' => 'luis@email.com',
@@ -65,6 +71,10 @@ class CreateNewUserWithFillableDataTest extends TestCase
     /** @test */
     public function check_that_the_password_is_confirmed()
     {
+        $this->app['config']->set('user-commands.rules', [
+            'password' => 'required|string|confirmed'
+        ]);
+
         $this->artisan('user:create')
             ->expectsQuestion('name', 'Luis Arce')
             ->expectsQuestion('email', 'luis@email.com')

@@ -301,6 +301,6 @@ class CreateNewUserCommand extends UserCommand
     private function confirmedFieldMustBeAsked($rules, string $field): bool
     {
         return is_array($rules[$field]) && in_array('confirmed', $rules[$field])
-            || is_string($rules[$field]) && str_contains($rules[$field], 'confirmed');
+            || is_string($rules[$field]) && strpos($rules[$field], 'confirmed');
     }
 }

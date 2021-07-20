@@ -193,26 +193,10 @@ class CreateNewUserCommand extends UserCommand
     }
 
     /**
-     * Validation rules
+     * Rules to be applied by default
      *
      * @return array
      */
-    protected function rules(): array
-    {
-        return $this->rules ?: array_merge($this->fillableRules(), $this->defaultRules());
-    }
-
-    protected function fillableRules(): array
-    {
-        $rules = [];
-
-        foreach ($this->user->getFillable() as $field) {
-            $rules[$field] = 'filled';
-        }
-
-        return $rules;
-    }
-
     protected function defaultRules(): array
     {
         return [
@@ -220,6 +204,34 @@ class CreateNewUserCommand extends UserCommand
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique($this->user->getTable())],
             'password' => ['required', 'string', 'confirmed'],
         ];
+    }
+
+    /**
+     * Validation rules
+     *
+     * @return array
+     */
+    private function rules(): array
+    {
+        return $this->rules ?: array_merge($this->filledFieldsRule(), $this->defaultRules());
+    }
+
+    /**
+     * Apply filled rule to all fields to be asked
+     *
+     * @return array
+     */
+    private function filledFieldsRule(): array
+    {
+        $fields = $this->fields ?: $this->user->getFillable();
+
+        $rules = [];
+
+        foreach ($fields as $field) {
+            $rules[$field] = 'filled';
+        }
+
+        return $rules;
     }
 
     /**

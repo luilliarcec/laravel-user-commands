@@ -1,4 +1,4 @@
-# Laravel User Commands
+# Laravel User Commands V3
 
 ![run-tests](https://github.com/luilliarcec/laravel-user-commands/workflows/run-tests/badge.svg)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/luilliarcec/laravel-user-commands.svg)](https://packagist.org/packages/luilliarcec/laravel-user-commands)
@@ -42,11 +42,20 @@ The package has 4 basic commands
 php artisan user:create
 ```
 
-The create command has 3 mandatory entries
-(`name`, `email` and `password`) also if your user model has more attributes you can pass it inline in the following
-way.
+###### Fields
 
-Since version 2.2.0, fields are taken from your fillable method defined in your model.
+All the fields defined in your fillable property of your model will be used when executing the command. If you want to
+add more fields you can do it from your config file (your file takes precedence over your model, so if you define the
+fields in your config file the fields of your fillable property will be ignored)
+
+###### Rules
+
+Whether you have fields defined in your model or in the configuration file, the `filled` rule will be dynamically
+applied to those fields. If you want to add custom rules you can do it from the rules key from your configuration file,
+these will be merged in such a way that those fields that have not been given a custom rule will use the `filled` rule
+by default.
+
+After all, you are free to extend the command and configure it to your liking.
 
 ```bash
 php artisan user:create -a username:larcec -a "other_field:Value of field"

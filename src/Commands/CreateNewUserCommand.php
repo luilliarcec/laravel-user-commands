@@ -4,7 +4,6 @@ namespace Luilliarcec\UserCommands\Commands;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
@@ -125,8 +124,6 @@ class CreateNewUserCommand extends UserCommand
      */
     protected function prepareForSave(): array
     {
-        $this->data['password'] = Hash::make($this->data['password']);
-
         return $this->merge([]);
     }
 

@@ -102,10 +102,9 @@ class CreateNewUserCommand extends CreateNewUserCommandBase
 {
     protected function prepareForSave(): array
     {
-        $this->data['password'] = Hash::make($this->data['password']);
-
         return $this->merge([
-            'username' => Username::make($this->data['name'])
+            'password' => Hash::make($this->data['password']),
+            'username' => Username::make($this->data['name']),
         ]);
     }
 }

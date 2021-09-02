@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-user-commands` will be documented in this file
 
+#3.1.0 - 2021-09-02
+- Add feature to attach all permissions.
+
 ## 3.0.0 - 2021-07-20
 - Fixed the bug that did not allow saving the user when the fillable property was used.
 - Removed default fields and default rules.

@@ -244,10 +244,16 @@ class CreateNewUserCommand extends UserCommand
 
         $options = $this->option('permissions');
 
-        $permissions = $this->permission::query()
-            ->whereIn('name', $options)
-            ->get('id')
-            ->modelKeys();
+        if (count($options) == 1 && $options[0] == '*') {
+            $permissions = $this->permission::query()
+                ->get('id')
+                ->modelKeys();
+        } else {
+            $permissions = $this->permission::query()
+                ->whereIn('name', $options)
+                ->get('id')
+                ->modelKeys();
+        }
 
         $this->user->$relation()->attach($permissions);
     }

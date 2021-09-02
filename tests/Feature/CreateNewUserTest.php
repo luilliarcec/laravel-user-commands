@@ -173,6 +173,38 @@ class CreateNewUserTest extends TestCase
     }
 
     /** @test */
+    public function check_that_the_user_is_saved_with_all_permissions_using_comodin()
+    {
+        $permission1 = Permission::create(['name' => 'user-create']);
+        $permission2 = Permission::create(['name' => 'user-edit']);
+
+        $this->artisan('user:create -p *')
+            ->expectsQuestion('name', 'Luis Arce')
+            ->expectsQuestion('email', 'luis@email.com')
+            ->expectsQuestion('password', 'password')
+            ->expectsQuestion('password confirmation', 'password')
+            ->expectsOutput('The user was created successfully!')
+            ->assertExitCode(0);
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'Luis Arce',
+            'email' => 'luis@email.com',
+        ]);
+
+        $this->assertDatabaseHas('model_has_permissions', [
+            'model_type' => User::class,
+            'model_id' => 1,
+            'permission_id' => $permission1->getKey()
+        ]);
+
+        $this->assertDatabaseHas('model_has_permissions', [
+            'model_type' => User::class,
+            'model_id' => 1,
+            'permission_id' => $permission2->getKey()
+        ]);
+    }
+
+    /** @test */
     public function check_that_the_user_is_saved_with_password_encrypted()
     {
         $this->artisan('user:create')

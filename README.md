@@ -176,6 +176,31 @@ php artisan user:restore larcec --field username
 
 Note that this command will only run if your model uses SoftDelete trait
 
+### Users With Roles and Permissions
+
+If you want to add roles and permissions to your users, don't forget to configure the relationship name 
+in your configuration file in addition to the role and permission model.
+
+To grant permissions to your user is as easy as:
+
+```bash
+php artisan user:create -p "user-create" -p "user-edit"
+```
+
+or
+
+```bash
+php artisan user:create --permissions="user-create" --permissions="user-edit"
+```
+
+If you want to grant all permissions, you can do this:
+
+```bash
+php artisan user:create -p *
+```
+
+Note that you must send a single permission flag otherwise it will not work.
+
 ## Testing
 
 ``` bash

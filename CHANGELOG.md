@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-user-commands` will be documented in this file
 
+#3.1.1 - 2021-09-02
+- Fix bug when permissions as string.
+
 #3.1.0 - 2021-09-02
 - Add feature to attach all permissions.
 

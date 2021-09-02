@@ -244,7 +244,10 @@ class CreateNewUserCommand extends UserCommand
 
         $options = $this->option('permissions');
 
-        if (count($options) == 1 && $options[0] == '*') {
+        if (
+            (is_array($options) && count($options) == 1 && $options[0] == '*') ||
+            (is_string($options) && $options == '*')
+        ) {
             $permissions = $this->permission::query()
                 ->get('id')
                 ->modelKeys();
